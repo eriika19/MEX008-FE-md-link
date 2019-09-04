@@ -1,6 +1,6 @@
 const fs = require('fs');
 const getUrls = require('get-urls');
-/* const request = require('request'); */
+ const request = require('request'); 
 
 
 
@@ -15,37 +15,48 @@ const getFile = (path) => {
   });
 };
 
+
 const getLinks = (file) => {
   return getUrls(file);
-}
+};
 
-/*  const getLinkLine = (file,link) => {
+
+  const getLinkLine = (file,link) => {
   const arrFile = file.split('\n');
-const line = link.nde
-  linksObj.forEach()
-for(i=0; i < arrFile.length; i++)
-  } */
+const index = arrFile.findIndex(line => line.indexOf(link) > -1);
+return index + 1;
+};
+  
+
+const validateLink = async (link) => {
+  request
+  .get(link)
+  .on('response', function(response) {
+    console.log(response.headers['content-type']); // 'image/png'
+    return response.statusCode; // 200
+  })
+ .pipe(request.put('http://mysite.com/img.png'))
+};
 
 const mdLinks = async (path,options) => {
-  // ...
   try {
     const file = await getFile(path);
     const setLinks = getLinks(file);
     const resultArr = [];
-    setLinks.forEach(link => resultArr.push({
+    setLinks.forEach( async (link) => 
+      resultArr.push({
       file: path,
       href: link,
       text: 'algo',
-      line: '2'
+      line: getLinkLine(file,link),
+      status: validateLink(link),
     }));
     return resultArr;   
 
 } catch (err) {
     console.log(err);
 }
-
 };
-
 
 
 mdLinks('./README_test.md')

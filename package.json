@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/eriika19/MEX008-FE-md-link#readme",
   "dependencies": {
-    "get-urls": "^9.1.0"
+    "get-urls": "^9.1.0",
+    "request": "^2.88.0"
   }
 }
