@@ -1,7 +1,7 @@
 {
-  "name": "eriika19/md-link",
+  "name": "md-links",
   "version": "1.0.0",
-  "description": "Verify all the links inside you markdown files\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[3~\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Cthe links inside your markdown files\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Cmarkdown files",
+  "description": "Verify all the links inside you markdown files",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/eriika19/MEX008-FE-md-link/issues"
   },
-  "homepage": "https://github.com/eriika19/MEX008-FE-md-link#readme"
+  "homepage": "https://github.com/eriika19/MEX008-FE-md-link#readme",
+  "dependencies": {
+    "get-urls": "^9.1.0"
+  }
 }
