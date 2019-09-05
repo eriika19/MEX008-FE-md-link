@@ -39,48 +39,77 @@ const validateLink = async (link) => {
 };
 
 const buildArr = async (path) => {
-      try {
-        const file = await getFile(path);
-        const setLinks = getLinks(file);
-        const arrLinks = Array.from(setLinks);
-        const resultArr = [];
-        for (index = 0; arrLinks.length !== resultArr.length; index++) {
-          const link = arrLinks[index];
-          const urlResponse = await validateLink(link);
-          resultArr.push({
-            file: path,
-            href: link,
-            text: 'algo',
-            line: getLinkLine(file, link),
-            response: urlResponse,
-            status: 'un status',
-          });
-        };
-        return resultArr;
-       } catch (err) {
-        console.log(err);
-        }
-      };
+  try {
+    const file = await getFile(path);
+    const setLinks = getLinks(file);
+    const arrLinks = Array.from(setLinks);
+    const resultArr = [];
+    for (index = 0; arrLinks.length !== resultArr.length; index++) {
+      const link = arrLinks[index];
+      resultArr.push({
+        file: path,
+        href: link,
+        text: 'algo',
+        line: getLinkLine(file, link),
+      });
+    };
+    return resultArr;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 
-      /* const returnArr = async (path,file,arr) => {
-        await buildArr(path,file,arr);
-        return arr;
-      } */
+const validateArr = async (path) => {
+  try {
+    const file = await getFile(path);
+    const setLinks = getLinks(file);
+    const arrLinks = Array.from(setLinks);
+    const resultArr = [];
+    for (index = 0; arrLinks.length !== resultArr.length; index++) {
+      const link = arrLinks[index];
+      const urlResponse = await validateLink(link);
+      resultArr.push({
+        file: path,
+        href: link,
+        text: 'algo',
+        line: getLinkLine(file, link),
+        response: urlResponse,
+        status: 'un status',
+      });
+    };
+    return resultArr;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-      const mdLinks = async (path, options) => {
-        try {
-          const resultArr = await buildArr(path);
-
-          return resultArr;
-        } catch (err) {
-          console.log(err);
-        }
-      };
 
 
 
-      mdLinks('./README_test.md')
-        .then(result => console.log(result));
+const mdLinks = async (path, options) => {
+  try {
+    if (options === undefined) {
+      return await buildArr(path);
+    }
 
-      module.exports.mdLinks;
+    if (options.validate === true) {
+      return await validateArr(path);
+    }
+
+    if (options.stats === true) {
+      return await statsArr(path)
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+
+mdLinks('./README_test.md', {
+    validate: true
+  })
+  .then(result => console.log(result));
+
+module.exports.mdLinks;
