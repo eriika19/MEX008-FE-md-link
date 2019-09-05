@@ -1,6 +1,6 @@
 const fs = require('fs');
 const getUrls = require('get-urls');
- const request = require('request'); 
+const request = require('request');
 
 
 
@@ -8,10 +8,10 @@ const getUrls = require('get-urls');
 // Función asíncrona para obtener el archivo .md como string dando como argumento un path que el usuario va a ingresar
 const getFile = (path) => {
   return new Promise((resolve, reject) => {
-      fs.readFile(path, 'UTF-8', (err, data) => {
-          if (err) reject(err);
-          resolve(data);
-      });
+    fs.readFile(path, 'UTF-8', (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    });
   });
 };
 
@@ -21,47 +21,66 @@ const getLinks = (file) => {
 };
 
 
-  const getLinkLine = (file,link) => {
+const getLinkLine = (file, link) => {
   const arrFile = file.split('\n');
-const index = arrFile.findIndex(line => line.indexOf(link) > -1);
-return index + 1;
+  const index = arrFile.findIndex(line => line.indexOf(link) > -1);
+  return index + 1;
 };
-  
+
 
 const validateLink = async (link) => {
-  request
-  .get(link)
-  .on('response', function(response) {
-    console.log(response.headers['content-type']); // 'image/png'
-    return response.statusCode; // 200
-  })
- .pipe(request.put('http://mysite.com/img.png'))
+  return new Promise((resolve, reject) => {
+    request(link, (error, response) => {
+      if (error) reject(error);
+      const resp = response && response.statusCode; // Print the response status code if a response was received
+      resolve(resp);
+    });
+  });
 };
 
-const mdLinks = async (path,options) => {
-  try {
-    const file = await getFile(path);
-    const setLinks = getLinks(file);
-    const resultArr = [];
-    setLinks.forEach( async (link) => 
-      resultArr.push({
-      file: path,
-      href: link,
-      text: 'algo',
-      line: getLinkLine(file,link),
-      status: validateLink(link),
-    }));
-    return resultArr;   
-
-} catch (err) {
-    console.log(err);
-}
-};
-
-
-mdLinks('./README_test.md')
- .then(result => console.log(result));
-
-module.exports.mdLinks;
+const buildArr = async (path) => {
+      try {
+        const file = await getFile(path);
+        const setLinks = getLinks(file);
+        const arrLinks = Array.from(setLinks);
+        const resultArr = [];
+        for (index = 0; arrLinks.length !== resultArr.length; index++) {
+          const link = arrLinks[index];
+          const urlResponse = await validateLink(link);
+          resultArr.push({
+            file: path,
+            href: link,
+            text: 'algo',
+            line: getLinkLine(file, link),
+            response: urlResponse,
+            status: 'un status',
+          });
+        };
+        return resultArr;
+       } catch (err) {
+        console.log(err);
+        }
+      };
 
 
+      /* const returnArr = async (path,file,arr) => {
+        await buildArr(path,file,arr);
+        return arr;
+      } */
+
+      const mdLinks = async (path, options) => {
+        try {
+          const resultArr = await buildArr(path);
+
+          return resultArr;
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+
+
+      mdLinks('./README_test.md')
+        .then(result => console.log(result));
+
+      module.exports.mdLinks;
