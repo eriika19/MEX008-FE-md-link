@@ -38,6 +38,16 @@ const validateLink = async (link) => {
   });
 };
 
+const getResponseMsg = async (response) => {
+  if (226 < response) {
+    return 'fail';
+  } else {
+    return 'ok';
+  };
+};
+
+
+
 const buildArr = async (path) => {
   try {
     const file = await getFile(path);
@@ -69,13 +79,14 @@ const validateArr = async (path) => {
     for (index = 0; arrLinks.length !== resultArr.length; index++) {
       const link = arrLinks[index];
       const urlResponse = await validateLink(link);
+      const responseMsg = await getResponseMsg(urlResponse);
       resultArr.push({
         file: path,
         href: link,
         text: 'algo',
         line: getLinkLine(file, link),
-        response: urlResponse,
-        status: 'un status',
+        status: responseMsg,
+        statusCode: urlResponse,
       });
     };
     return resultArr;
@@ -93,12 +104,39 @@ const mdLinks = async (path, options) => {
       return await buildArr(path);
     }
 
+    if (options.validate === true && options.stats === true) {
+      const file = await getFile(path);
+      const setLinks = getLinks(file);
+      const arrLinks = Array.from(setLinks);
+      let counter = 0;
+      for (i = 0; i < arrLinks.length; i++) {
+        const link = arrLinks[i];
+        const urlResponse = await validateLink(link);
+        if (226 < urlResponse) {
+          counter++;
+        }
+      };
+
+      const bothArr = {
+        Total: arrLinks.length,
+        Unique: arrLinks.length,
+        Broken: counter,
+      };
+      return bothArr;
+    }
+
     if (options.validate === true) {
       return await validateArr(path);
     }
 
     if (options.stats === true) {
-      return await statsArr(path)
+      const file = await getFile(path);
+      const uniqueLinks = getLinks(file).size;
+      const statsArr = {
+        Total: uniqueLinks,
+        Unique: uniqueLinks,
+      };
+      return statsArr;
     }
   } catch (err) {
     console.log(err);
@@ -108,7 +146,8 @@ const mdLinks = async (path, options) => {
 
 
 mdLinks('./README_test.md', {
-    validate: true
+    validate: true,
+    stats: true,
   })
   .then(result => console.log(result));
 
