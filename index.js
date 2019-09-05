@@ -1,5 +1,5 @@
 const fs = require('fs');
-const getUrls = require('get-urls');
+//  const getUrls = require('get-urls'); 
 const request = require('request');
 
 
@@ -15,9 +15,33 @@ const getFile = (path) => {
   });
 };
 
+ const getLinkText = (file) => {
+  let match;
+  const linkRegex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
+  const allMatches = [];
 
-const getLinks = (file) => {
-  return getUrls(file);
+  while (( match = linkRegex.exec(file)) !== null) {
+      allMatches.push({ text: match[1], href: match[2] })
+  }
+  return allMatches
+}
+
+ const getAllMatches = (file) => {
+  let match;
+  const linkRegex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
+  const allMatches = [];
+
+  while ((match = linkRegex.exec(file)) !== null) {
+      allMatches.push(match[2])
+  }
+  return allMatches
+}
+
+const getUniqueLinks = (file) => {
+const allMatches = getAllMatches(file);
+const uniqueLinks = new Set(allMatches);
+
+return uniqueLinks;
 };
 
 
@@ -51,15 +75,16 @@ const getResponseMsg = async (response) => {
 const buildArr = async (path) => {
   try {
     const file = await getFile(path);
-    const setLinks = getLinks(file);
-    const arrLinks = Array.from(setLinks);
+    // const setLinks = getUniqueLinks(file);
+    const arrLinks = getLinkText(file);
     const resultArr = [];
     for (index = 0; arrLinks.length !== resultArr.length; index++) {
-      const link = arrLinks[index];
+      const link = arrLinks[index].href;
+      const textLink = arrLinks[index].text;
       resultArr.push({
         file: path,
         href: link,
-        text: 'algo',
+        text: textLink,
         line: getLinkLine(file, link),
       });
     };
@@ -73,17 +98,18 @@ const buildArr = async (path) => {
 const validateArr = async (path) => {
   try {
     const file = await getFile(path);
-    const setLinks = getLinks(file);
-    const arrLinks = Array.from(setLinks);
+ /*    const setLinks = getUniqueLinks(file) */;
+    const arrLinks = getLinkText(file);
     const resultArr = [];
     for (index = 0; arrLinks.length !== resultArr.length; index++) {
-      const link = arrLinks[index];
+      const link = arrLinks[index].href;
+      const textLink = arrLinks[index].text;
       const urlResponse = await validateLink(link);
       const responseMsg = await getResponseMsg(urlResponse);
       resultArr.push({
         file: path,
         href: link,
-        text: 'algo',
+        text: textLink,
         line: getLinkLine(file, link),
         status: responseMsg,
         statusCode: urlResponse,
@@ -106,8 +132,9 @@ const mdLinks = async (path, options) => {
 
     if (options.validate === true && options.stats === true) {
       const file = await getFile(path);
-      const setLinks = getLinks(file);
-      const arrLinks = Array.from(setLinks);
+      const allMatches = getAllMatches(file);
+      const uniqueLinks = getUniqueLinks(file);
+      const arrLinks = Array.from(uniqueLinks);
       let counter = 0;
       for (i = 0; i < arrLinks.length; i++) {
         const link = arrLinks[i];
@@ -118,8 +145,8 @@ const mdLinks = async (path, options) => {
       };
 
       const bothArr = {
-        Total: arrLinks.length,
-        Unique: arrLinks.length,
+        Total: allMatches.length,
+        Unique: uniqueLinks.size,
         Broken: counter,
       };
       return bothArr;
@@ -131,10 +158,11 @@ const mdLinks = async (path, options) => {
 
     if (options.stats === true) {
       const file = await getFile(path);
-      const uniqueLinks = getLinks(file).size;
+      const allMatches = getAllMatches(file);
+      const uniqueLinks = getUniqueLinks(file);
       const statsArr = {
-        Total: uniqueLinks,
-        Unique: uniqueLinks,
+        Total: allMatches.length,
+        Unique: uniqueLinks.size,
       };
       return statsArr;
     }
@@ -147,7 +175,7 @@ const mdLinks = async (path, options) => {
 
 mdLinks('./README_test.md', {
     validate: true,
-    stats: true,
+    stats: false,
   })
   .then(result => console.log(result));
 
