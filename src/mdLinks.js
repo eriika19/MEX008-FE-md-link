@@ -1,11 +1,10 @@
-const getFile = require ('getFile');
-//const getLinkText = require ('getLinkText');
-const getAllMatches = require ('getAllMatches');
-const getUniqueLinks = require ('getUniqueLinks');
-//const getLinkLine = require ('getLinkLine');
-const validateLink = require ('validateLink');
-const buildArr = require ('buildArr');
-const validateArr = require ('validateArr');
+const { getFile, 
+  getAllMatches, 
+  getUniqueLinks, 
+  validateLink,
+  buildArr,
+  validateArr
+} = require('./utils/index');
 
 const mdLinks = async (path, options) => {
     try {
@@ -53,7 +52,7 @@ const mdLinks = async (path, options) => {
     }
   };
     
-  mdLinks('./test/README_test.md', {
+  mdLinks('../test/README_test.md', {
       validate: true,
       stats: false,
     })

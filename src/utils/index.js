@@ -106,4 +106,14 @@ const validateArr = async (path) => {
   }
 };
 
-module.exports.getFile;
+module.exports = {
+  getFile,
+  getLinkText,
+  getLinkLine,
+  getAllMatches,
+  getUniqueLinks,
+  validateLink,
+  getResponseMsg,
+  buildArr,
+  validateArr
+};
