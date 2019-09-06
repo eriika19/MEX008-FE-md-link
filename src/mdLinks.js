@@ -53,7 +53,7 @@ const mdLinks = async (path, options) => {
     }
   };
     
-  mdLinks('./src/utils/README_test.md', {
+  mdLinks('./test/README_test.md', {
       validate: true,
       stats: false,
     })
