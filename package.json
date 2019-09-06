@@ -1,4 +1,33 @@
 {
   "name": "md-links",
-  "version": "0.1.0"
+  "version": "1.0.0",
+  "description": "Found and validate all the links inside you markdown files",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eriika19/md-links.git"
+  },
+  "keywords": [
+    "markdown",
+    "validate",
+    "links"
+  ],
+  "author": "Itzel Enciso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eriika19/md-link/issues"
+  },
+  "homepage": "https://github.com/eriika19/md-link#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "bin": {
+    "md-links": "./dist/cli.js"
+  }
 }
