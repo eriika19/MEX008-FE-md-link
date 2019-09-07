@@ -1,58 +1,14 @@
-const fs = require('fs');
-const request = require('request');
+const {
+    getFile, 
+    getAllLinks, 
+    getUniqueLinks, 
+    getLinkText,
+    getLinkLine,
+    validateLink
+      } = require('./get_links.js');
 
-const getFile = (path) => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'UTF-8', (err, data) => {
-      if (err) reject(err);
-      resolve(data);
-    });
-  });
-};
 
-const getLinkText = (file) => {
-  let match;
-  const linkRegex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
-  const allMatches = [];
-  while (( match = linkRegex.exec(file)) !== null) {
-      allMatches.push({ text: match[1], href: match[2] })
-  }
-  return allMatches
-}
-
-const getAllMatches = (file) => {
-  let match;
-  const linkRegex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
-  const allMatches = [];
-  while ((match = linkRegex.exec(file)) !== null) {
-      allMatches.push(match[2])
-  }
-  return allMatches
-}
-
-const getUniqueLinks = (file) => {
-const allMatches = getAllMatches(file);
-const uniqueLinks = new Set(allMatches);
-return uniqueLinks;
-};
-
-const getLinkLine = (file, link) => {
-  const arrFile = file.split('\n');
-  const index = arrFile.findIndex(line => line.indexOf(link) > -1);
-  return index + 1;
-};
-
-const validateLink = async (link) => {
-  return new Promise((resolve, reject) => {
-    request(link, (error, response) => {
-      if (error) reject(error);
-      const resp = response && response.statusCode; // Print the response status code if a response was received
-      resolve(resp);
-    });
-  });
-};
-
-const getResponseMsg = async (response) => {
+      const getResponseMsg = async (response) => {
   if (response !== 200) {
     return 'fail';
   } else {
@@ -106,14 +62,51 @@ const validateArr = async (path) => {
   }
 };
 
+const handleOptions = async (path, options) => {
+  if (options === undefined) {
+    return await buildArr(path);
+  }
+
+  if (options.validate === true && options.stats === true) {
+    const file = await getFile(path);
+    const allMatches = getAllLinks(file);
+    const uniqueLinks = getUniqueLinks(file);
+    const arrLinks = Array.from(uniqueLinks);
+    let counter = 0;
+    for (i = 0; i < arrLinks.length; i++) {
+      const link = arrLinks[i];
+      const urlResponse = await validateLink(link);
+      if (200 !== urlResponse) {
+        counter++;
+      }
+    };  
+    const bothArr = {
+      Total: allMatches.length,
+      Unique: uniqueLinks.size,
+      Broken: counter,
+    };
+    return bothArr;
+  }
+
+  if (options.validate === true) {
+    return await validateArr(path);
+  }
+
+  if (options.stats === true) {
+    const file = await getFile(path);
+    const allMatches = getAllLinks(file);
+    const uniqueLinks = getUniqueLinks(file);
+    const statsArr = {
+      Total: allMatches.length,
+      Unique: uniqueLinks.size,
+    };
+    return statsArr;
+  }
+};
+
 module.exports = {
-  getFile,
-  getLinkText,
-  getLinkLine,
-  getAllMatches,
-  getUniqueLinks,
-  validateLink,
   getResponseMsg,
   buildArr,
-  validateArr
+  validateArr, 
+  handleOptions
 };

@@ -1,61 +1,41 @@
-const { getFile, 
-  getAllMatches, 
-  getUniqueLinks, 
-  validateLink,
-  buildArr,
-  validateArr
+const {
+  handlePath
+} = require('./utils/handle_path');
+
+const {
+  handleOptions
 } = require('./utils/index');
 
-const mdLinks = async (path, options) => {
-    try {
-      if (options === undefined) {
-        return await buildArr(path);
-      }
 
-      if (options.validate === true && options.stats === true) {
-        const file = await getFile(path);
-        const allMatches = getAllMatches(file);
-        const uniqueLinks = getUniqueLinks(file);
-        const arrLinks = Array.from(uniqueLinks);
-        let counter = 0;
-        for (i = 0; i < arrLinks.length; i++) {
-          const link = arrLinks[i];
-          const urlResponse = await validateLink(link);
-          if (200 !== urlResponse) {
-            counter++;
-          }
-        };  
-        const bothArr = {
-          Total: allMatches.length,
-          Unique: uniqueLinks.size,
-          Broken: counter,
-        };
-        return bothArr;
-      }
-  
-      if (options.validate === true) {
-        return await validateArr(path);
-      }
-  
-      if (options.stats === true) {
-        const file = await getFile(path);
-        const allMatches = getAllMatches(file);
-        const uniqueLinks = getUniqueLinks(file);
-        const statsArr = {
-          Total: allMatches.length,
-          Unique: uniqueLinks.size,
-        };
-        return statsArr;
-      }
-    } catch (err) {
-      console.log(err);
+const mdLinks = async (path, options) => {
+  try {
+    const arrPath = handlePath(path);
+    if (typeof arrPath === 'string') {
+      return result = await handleOptions(arrPath,options);       
     }
-  };
-    
-  mdLinks('../test/README_test.md', {
-      validate: true,
-      stats: false,
-    })
-    .then(result => console.log(result));
-  
-  module.exports.mdLinks;
+
+    if (typeof arrPath === 'object') {
+      return arrPath;      
+    }
+
+  //  const result = [];
+/*     for (i = 0; result.length !== arrPath.length; i++) {
+      const pathFile = arrPath[i];
+      const obj = await handleOptions(pathFile, options);
+      result.push(obj);
+    } */
+
+   // return result;
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+mdLinks('./test/test_dir', {
+    validate: true,
+    stats: false,
+  })
+  .then(result => console.log(result));
+
+module.exports.mdLinks;
