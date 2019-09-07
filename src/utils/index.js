@@ -7,6 +7,10 @@ const {
     validateLink
       } = require('./get_links.js');
 
+      const {
+handlePath
+          } = require('./handle_path.js');
+
 
   const getResponseMsg = async (response) => {
   if (response !== 200) {
@@ -104,18 +108,22 @@ const handleOptions = async (path, options,resultArr) => {
   }
 };
 
- const handleArrFiles = async (arrFiles,options, resultArr) => {
+ const handleArrFiles = async (path,options, resultArr) => {
   try {
-    const firstPath = arrFiles[0];
-    const firstresult = await handleArrFiles(firstPath,options,resultArr);
-for (let index = 1; arrFiles.length !== resultArr.length; index++) {
-  const indexPath = array[index];
-  const indexresult = await handleArrFiles(indexPath,options,resultArr); 
+    const arrPath = await handlePath(path);
+//return arrPath;
+
+    const firstPath = arrPath[0];
+    const firstresult = await handleOptions(firstPath,options,resultArr);
+    return firstresult;
+/*for (let index = 1; i < arrFiles.length; index++) {
+  const indexPath = arrFiles[index];
+  const indexresult = await handleOptions(indexPath,options,resultArr); 
   indexresult.forEach(element => {
     firstresult.push(element);
   });
 }
-return firstresult;
+return firstresult;  */
     } catch (error) {
     console.log(error);
   }

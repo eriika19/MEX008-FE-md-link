@@ -25,7 +25,7 @@ const handleDir = async (path) => {
   return pathsArr;
 }
 
-const handlePath = (path) => {
+const handlePath = async (path) => {
       if (!path) {
         return new Error('path was not provided');
       }
@@ -41,7 +41,7 @@ const handlePath = (path) => {
       } 
 
        if (!isMd) {
-const pathsArr = handleDir(path);
+const pathsArr = await handleDir(path);
 return pathsArr; 
       }  
   };

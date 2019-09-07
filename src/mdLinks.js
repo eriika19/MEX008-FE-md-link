@@ -10,17 +10,16 @@ const {
 
 const mdLinks = async (path, options) => {
   try {
-    const arrPath = handlePath(path);
+    const arrPath = await handlePath(path);
     if (typeof arrPath === 'string') {
       const resultArr = [];
       return await handleOptions(arrPath,options,resultArr);       
     }
 
     if (typeof arrPath === 'object') { 
-    //  return arrPath;  
-    const arrFiles = Array.from(arrPath);
-    let resultArr = [];
-return await handleArrFiles(arrFiles,options,resultArr);
+ //return arrPath;  
+     let resultArr = [];
+return await handleArrFiles(path,options,resultArr); 
 
      }
   } catch (err) {
