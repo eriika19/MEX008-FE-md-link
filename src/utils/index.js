@@ -8,7 +8,7 @@ const {
       } = require('./get_links.js');
 
 
-      const getResponseMsg = async (response) => {
+  const getResponseMsg = async (response) => {
   if (response !== 200) {
     return 'fail';
   } else {
@@ -16,11 +16,11 @@ const {
   };
 };
 
-const buildArr = async (path) => {
+const buildArr = async (path, resultArr) => {
   try {
     const file = await getFile(path);
     const arrLinks = getLinkText(file);
-    const resultArr = [];
+    //const resultArr = [];
     for (index = 0; arrLinks.length !== resultArr.length; index++) {
       const link = arrLinks[index].href;
       const textLink = arrLinks[index].text;
@@ -37,11 +37,11 @@ const buildArr = async (path) => {
   }
 };
 
-const validateArr = async (path) => {
+const validateArr = async (path, resultArr) => {
   try {
     const file = await getFile(path);
     const arrLinks = getLinkText(file);
-    const resultArr = [];
+    //const resultArr = [];
     for (index = 0; arrLinks.length !== resultArr.length; index++) {
       const link = arrLinks[index].href;
       const textLink = arrLinks[index].text;
@@ -62,9 +62,9 @@ const validateArr = async (path) => {
   }
 };
 
-const handleOptions = async (path, options) => {
+const handleOptions = async (path, options,resultArr) => {
   if (options === undefined) {
-    return await buildArr(path);
+    return await buildArr(path,resultArr);
   }
 
   if (options.validate === true && options.stats === true) {
@@ -89,7 +89,7 @@ const handleOptions = async (path, options) => {
   }
 
   if (options.validate === true) {
-    return await validateArr(path);
+    return await validateArr(path,resultArr);
   }
 
   if (options.stats === true) {
@@ -104,9 +104,33 @@ const handleOptions = async (path, options) => {
   }
 };
 
+ const handleArrFiles = async (arrFiles,options, resultArr) => {
+  try {
+    const firstPath = arrFiles[0];
+    const firstresult = await handleArrFiles(firstPath,options,resultArr);
+for (let index = 1; arrFiles.length !== resultArr.length; index++) {
+  const indexPath = array[index];
+  const indexresult = await handleArrFiles(indexPath,options,firstresult);
+
+  
+}
+
+/*     arrFiles.forEach(async (pathFile) => {
+      resultArr = await handleOptions(pathFile,options,resultArr);
+    }); */
+
+    return resultArr;
+
+    } catch (error) {
+    console.log(error);
+  }
+} 
+
+
 module.exports = {
   getResponseMsg,
   buildArr,
   validateArr, 
-  handleOptions
+  handleOptions, 
+  handleArrFiles
 };
