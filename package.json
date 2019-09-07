@@ -25,9 +25,10 @@
   },
   "homepage": "https://github.com/eriika19/md-link#readme",
   "dependencies": {
+    "minimist": "^1.2.0",
     "request": "^2.88.0"
   },
   "bin": {
-    "md-links": "./dist/cli.js"
+    "md-links": "./src/cli.js"
   }
 }
