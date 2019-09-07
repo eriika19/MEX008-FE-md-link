@@ -111,11 +111,11 @@ const handleOptions = async (path, options,resultArr) => {
  const handleArrFiles = async (path,options, resultArr) => {
   try {
     const arrPath = await handlePath(path);
-//return arrPath;
+return arrPath;
 
-    const firstPath = arrPath[0];
+/*     const firstPath = arrPath[0];
     const firstresult = await handleOptions(firstPath,options,resultArr);
-    return firstresult;
+    return firstresult; */
 /*for (let index = 1; i < arrFiles.length; index++) {
   const indexPath = arrFiles[index];
   const indexresult = await handleOptions(indexPath,options,resultArr); 
