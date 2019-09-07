@@ -110,17 +110,12 @@ const handleOptions = async (path, options,resultArr) => {
     const firstresult = await handleArrFiles(firstPath,options,resultArr);
 for (let index = 1; arrFiles.length !== resultArr.length; index++) {
   const indexPath = array[index];
-  const indexresult = await handleArrFiles(indexPath,options,firstresult);
-
-  
+  const indexresult = await handleArrFiles(indexPath,options,resultArr); 
+  indexresult.forEach(element => {
+    firstresult.push(element);
+  });
 }
-
-/*     arrFiles.forEach(async (pathFile) => {
-      resultArr = await handleOptions(pathFile,options,resultArr);
-    }); */
-
-    return resultArr;
-
+return firstresult;
     } catch (error) {
     console.log(error);
   }
