@@ -9,26 +9,24 @@ const isMarkdownFile = (path) => path.endsWith('.md') || path.endsWith('.markdow
 
 const findMarkdownFiles = (path) => {
   try {
-    const pathsArr = fs.statSync(path).isDirectory() ?
+    return fs.statSync(path).isDirectory() ?
       fs.readdirSync(path).reduce((a, b) => a.concat(findMarkdownFiles(join(path, b))), []) :
       isMarkdownFile(path) ? [path] : []
-      if (pathsArr.length < 1) {
-    return new Error('path provided has no markdown files');        
-      }
-      return pathsArr;
+
    } catch (err) {
     return new Error('path provided not found', err.message || err);
   }
 }
 
-const handleDir = async (path) => {
+const handleDir = (path) => {
   try {
     const dirPath = isAbsolute(path) ? path : resolve(path);
     const pathsArr = findMarkdownFiles(dirPath);
-    if (Array.isArray(pathsArr) !== true) {
-      console.log(pathsArr);
-    }
-   
+
+        if (pathsArr.length < 1) {
+    console.log (new Error('path provided has no markdown files'));     
+      }  
+
     return pathsArr;
     
   } catch (error) {
@@ -36,7 +34,7 @@ const handleDir = async (path) => {
   }
 }
 
-const handlePath = async (path) => {
+const handlePath = (path) => {
   try {
     if (!path) {
       return new Error('path was not provided');
@@ -53,14 +51,12 @@ const handlePath = async (path) => {
     } 
 
      if (!isMd) {
-const pathsArr = await handleDir(path);
+const pathsArr = handleDir(path);
 return pathsArr; 
     }  
     
   } catch (error) {
-    console.log(error);
-
-    
+    console.log(error);    
   }
   };
 

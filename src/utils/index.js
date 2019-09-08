@@ -13,7 +13,7 @@ handlePath
           } = require('./handle_path.js');
 
 
-  const getResponseMsg = async (response) => {
+  const getResponseMsg = (response) => {
   if (response !== 200 && response !== 201) {
     return 'fail';
   } else {
@@ -83,7 +83,7 @@ const validateArr = async (path, resultArr) => {
         const link = arrLinks[index].href;
         const textLink = arrLinks[index].text;
         const urlResponse = await validateLink(link);
-        const responseMsg = await getResponseMsg(urlResponse);
+        const responseMsg = getResponseMsg(urlResponse);
         resultArr.push({
           file: path,
           href: link,

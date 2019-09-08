@@ -2,7 +2,7 @@
 const fs = require('fs');
 const request = require('request');
 
-const getFile = (path) => {
+const getFile = async (path) => {
     return new Promise((resolve, reject) => {
       fs.readFile(path, 'UTF-8', (err, data) => {
         if (err) reject(err);

@@ -10,7 +10,7 @@ const {
 
 const mdLinks = async (path, options) => {
   try {
-    const arrPath = await handlePath(path);
+    const arrPath = handlePath(path);
 
     if (typeof arrPath === 'string') {
       const resultArr = [];
@@ -28,8 +28,8 @@ const mdLinks = async (path, options) => {
 };
 
 mdLinks('./test/test_dir',  {
-    validate: true,
-    stats: false,
+    validate: false,
+    stats: true,
   })
   .then(result => console.log(result));
 
