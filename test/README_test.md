@@ -81,6 +81,8 @@ Los comentarios que obtuvimos sobre este prototipo, fueron en general que era ba
 - No se intuía en todos los casos que la foto del usuario en la sección superior izquierda desplegaba un menú lateral.
 - No resultaba intuitivo el botón de SOS, muchos los confundieron con notificaciones. Además no entendían cual era su función.
 
+https://www.figma.com/proto/MMsy7ojEalu6q6QwTFCw5s/Red-social-bike?node-id=53%3A13&scaling=scale-down
+
 ## Historias de Usuario
 
 ### Primera

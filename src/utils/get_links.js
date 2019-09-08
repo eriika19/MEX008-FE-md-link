@@ -21,15 +21,29 @@ const getLinkText = (file) => {
   return allMatches
 }
 
-const getAllLinks = (file) => {
-  let match;
-  const linkRegex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
+  const getAllLinks = (file) => {
+  let match; 
+  const linkRegex = /https?:\/\/[^\s$.?#].[^)|\s]*/g;
   const allMatches = [];
   while ((match = linkRegex.exec(file)) !== null) {
-      allMatches.push(match[2])
+      allMatches.push(match[0])
   }
+
   return allMatches
-}
+}  
+
+
+/*  const getAllLinks = async (path) => {
+  const file = await getFile(path);
+  let match; */
+//const linkRegex = /https?:\/\/[^\s$.?#].[^)|\s]*/g;
+/*   const allMatches = [];
+  while ((match = linkRegex.exec(file)) !== null) {
+      allMatches.push(match[0])
+  }
+
+  return allMatches
+}  */
 
 const getUniqueLinks = (file) => {
 const allMatches = getAllLinks(file);
@@ -52,6 +66,16 @@ const validateLink = async (link) => {
     });
   });
 };
+
+// parenthesis const linkRegex = /\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
+
+
+// ultimate const linkRegex = /https?:\/\/[^\s$.?#].[^)|\s]*/g;
+
+
+
+/* getAllLinks('./test/README_test.md')
+.then(result => console.log(result)); */
 
 module.exports = {
 getFile, 

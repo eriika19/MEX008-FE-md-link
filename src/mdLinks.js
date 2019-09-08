@@ -4,7 +4,7 @@ const {
 
 const {
   handleOptions,
-  handleArrFiles
+ // handleArrFiles
 } = require('./utils/index');
 
 
@@ -18,8 +18,13 @@ const mdLinks = async (path, options) => {
 
     if (typeof arrPath === 'object') { 
  //return arrPath;  
-     let resultArr = [];
-return await handleArrFiles(path,options,resultArr); 
+ const firstPath = arrPath[0];
+ console.log(firstPath);
+ console.log(typeof firstPath);
+     const  resultArr = [];
+
+
+return await handleOptions(firstPath,options,resultArr); 
 
      }
   } catch (err) {
@@ -27,10 +32,13 @@ return await handleArrFiles(path,options,resultArr);
   }
 };
 
-mdLinks('./test/test_dir', {
+mdLinks('./test/README_test.md', {
     validate: true,
-    stats: false,
+    stats: true,
   })
   .then(result => console.log(result));
+
+//mdLinks('./test/test_dir/test_3.md', {
+ 
 
 module.exports.mdLinks;
