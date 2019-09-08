@@ -1,0 +1,101 @@
+[33mcommit c76d0a92fab79c3c31e73c9d212b7f65d7e38e55[m[33m ([m[1;36mHEAD -> [m[1;32mfinal[m[33m, [m[1;32mmaster[m[33m)[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sun Sep 8 04:38:13 2019 -0500
+
+    se comenzo cli
+
+[33mcommit 54735d214bdfd615b514af1bce56a24a2f33371d[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sun Sep 8 04:05:30 2019 -0500
+
+    se completo funcion mdLinks con funcionalidad para directorio
+
+[33mcommit a40d73f0531dfe45b638a6c8f2a10a886263760a[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 21:02:31 2019 -0500
+
+    href no definidad para directorio
+
+[33mcommit fe9c004d2cf858196937bbf564f46f0d4c55040b[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 20:42:44 2019 -0500
+
+    se cambiaron los archivos md de prueba
+
+[33mcommit 0f36968b96e29771bb30b7fa7324c2a38f839f1d[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 20:26:04 2019 -0500
+
+    se cambiaron los archivos .md
+
+[33mcommit 90d03f16cba5e1e5d6a67b5e8538b9329d8e7122[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 20:12:19 2019 -0500
+
+    se arreglo para que lea todos los links
+
+[33mcommit 7e2cdf8d20c66e9dc0ee33cc94d4c11e008c90b4[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 18:33:23 2019 -0500
+
+    se instalo minismist para cli
+
+[33mcommit 6372dc3193845f088abc36ad7ed04e6189a8e1c3[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 18:21:54 2019 -0500
+
+    se retorna el arreglo de paths de archivos md cuando se ingresa un path de directorio
+
+[33mcommit 1452ca91b0a2df5dcf6a5d628773c83f52aa17dd[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 18:15:34 2019 -0500
+
+    segundo intento de logica para directorio
+
+[33mcommit 62a145bfbcc8461d2f2dec6dfb4e732fa7726c06[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 17:46:47 2019 -0500
+
+    tratando de completar logica para un directorio
+
+[33mcommit ec77e99129a4938fbedcba3cbdca8e1ac11664a5[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Sat Sep 7 17:40:02 2019 -0500
+
+    tratando de completar logica para un directorio
+
+[33mcommit 12f4caa2a798cb7ebc5a589fc8a2b76a4290f1db[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Fri Sep 6 20:58:14 2019 -0500
+
+    se logro aplicar funcion para path de un solo archivo
+
+[33mcommit d870a4451bfdb053e20ee8f2fd51f95248b6a073[m
+Author: eriika19 <enciso.iq@gmail.com>
+Date:   Fri Sep 6 14:04:33 2019 -0500
+
+    se modulo exitosamente
+
+[33mcommit 9ce4898685446b79094897618eb724e95b1b6ed5[m
+Author: eriika19 <51388362+eriika19@users.noreply.github.com>
+Date:   Fri Sep 6 01:04:14 2019 -0500
+
+    se organizo modulos y funciones
+
+[33mcommit a3f1d74decb72660022a04afc9999d273d5140a8[m
+Author: eriika19 <51388362+eriika19@users.noreply.github.com>
+Date:   Fri Sep 6 01:03:15 2019 -0500
+
+    se organizo modulos y funciones
+
+[33mcommit 3245c0bf3b93b4806c72e66186151c75761a0ec7[m
+Author: eriika19 <51388362+eriika19@users.noreply.github.com>
+Date:   Thu Sep 5 23:28:44 2019 -0500
+
+    index
+
+[33mcommit 1763c6f456eaa143fb3a5883f07c6559677d38f2[m
+Author: Shirley Silvana Suarez <shirley.startary@gmail.com>
+Date:   Mon Aug 19 16:02:27 2019 -0500
+
+    Initial commit

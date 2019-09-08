@@ -2,7 +2,7 @@
 const fs = require('fs');
 const request = require('request');
 
-const getFile = (path) => {
+const getFile = async (path) => {
     return new Promise((resolve, reject) => {
       fs.readFile(path, 'UTF-8', (err, data) => {
         if (err) reject(err);
@@ -23,6 +23,18 @@ const getLinkText = (file) => {
 
   const getAllLinks = (file) => {
   let match; 
+  const linkRegex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s$.?#].[^\s]*)\)/g;
+  const allMatches = [];
+  while (( match = linkRegex.exec(file)) !== null) {
+    allMatches.push(match[2])
+  }
+
+  return allMatches
+}  
+
+
+ const getRawLinks = (file) => {
+  let match; 
   const linkRegex = /https?:\/\/[^\s$.?#].[^)|\s]*/g;
   const allMatches = [];
   while ((match = linkRegex.exec(file)) !== null) {
@@ -30,8 +42,7 @@ const getLinkText = (file) => {
   }
 
   return allMatches
-}  
-
+} 
 
 /*  const getAllLinks = async (path) => {
   const file = await getFile(path);
@@ -60,7 +71,7 @@ const getLinkLine = (file, link) => {
 const validateLink = async (link) => {
   return new Promise((resolve, reject) => {
     request(link, (error, response) => {
-      if (error) reject(error);
+      if (error) {resolve(error.code);};
       const resp = response && response.statusCode; // Print the response status code if a response was received
       resolve(resp);
     });
@@ -83,5 +94,6 @@ getAllLinks,
 getLinkText,
 getUniqueLinks,
 getLinkLine,
-validateLink
+validateLink, 
+getRawLinks
   };
