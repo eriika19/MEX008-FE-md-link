@@ -34,7 +34,7 @@ return await handleOptions(firstPath,options,resultArr);
 
 mdLinks('./test/README_test.md', {
     validate: true,
-    stats: true,
+    stats: false,
   })
   .then(result => console.log(result));
 
