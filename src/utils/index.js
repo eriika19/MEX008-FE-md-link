@@ -4,7 +4,8 @@ const {
     getUniqueLinks, 
     getLinkText,
     getLinkLine,
-    validateLink
+    validateLink,
+    getRawLinks
       } = require('./get_links.js');
 
       const {
@@ -13,7 +14,7 @@ handlePath
 
 
   const getResponseMsg = async (response) => {
-  if (response !== 200) {
+  if (response !== 200 && response !== 201) {
     return 'fail';
   } else {
     return 'ok';
@@ -22,20 +23,36 @@ handlePath
 
 const buildArr = async (path, resultArr) => {
   try {
-    const file = await getFile(path);
-    const arrLinks = getLinkText(file);
-    //const resultArr = [];
-    for (index = 0; arrLinks.length !== resultArr.length; index++) {
-      const link = arrLinks[index].href;
-      const textLink = arrLinks[index].text;
-      resultArr.push({
-        file: path,
-        href: link,
-        text: textLink,
-        line: getLinkLine(file, link),
-      });
+  const file = await getFile(path);
+  const arrLinks = getLinkText(file);
+
+  if (arrLinks.length < 1) {
+    const rawLinks = getRawLinks(file);
+      if (rawLinks.length > 0) {
+        return {
+          file: path,
+          links: rawLinks.length,
+          error: 'the markdown file has no links with the next structure: "[text_of_link](href_of_link)"'
+        };
+     }
+     return {
+      file: path,
+      links: rawLinks.length,
+      error: 'the markdown file has no links'
     };
-    return resultArr;
+      }
+      for (index = 0; arrLinks.length !== resultArr.length; index++) {
+      //  if(arrLinks[index] === undefined) {break;};        
+        const link = arrLinks[index].href;
+        const textLink = arrLinks[index].text;
+        resultArr.push({
+          file: path,
+          href: link,
+          text: textLink,
+          line: getLinkLine(file, link),
+        });
+      };
+      return resultArr;      
   } catch (err) {
     console.log(err);
   }
@@ -45,8 +62,24 @@ const validateArr = async (path, resultArr) => {
   try {
     const file = await getFile(path);
     const arrLinks = getLinkText(file);
-    if (arrLinks.length > 0) {
+
+    if (arrLinks.length < 1) {
+      const rawLinks = getRawLinks(file);
+        if (rawLinks.length > 0) {
+          return {
+            file: path,
+            links: rawLinks.length,
+            error: 'the markdown file has no links with the next structure: "[text_of_link](href_of_link) to validate"'
+          };
+       }
+       return {
+        file: path,
+        links: rawLinks.length,
+        error: 'the markdown file has no links to validate'
+      };
+        }
       for (index = 0; arrLinks.length !== resultArr.length; index++) {
+    //    if(arrLinks[index] === undefined) {break};
         const link = arrLinks[index].href;
         const textLink = arrLinks[index].text;
         const urlResponse = await validateLink(link);
@@ -61,16 +94,14 @@ const validateArr = async (path, resultArr) => {
         });
       };  
     return resultArr;
-
-    }
-    //const resultArr = [];
   } catch (err) {
-    console.log(err);
+    return new Error(err);
+    
   }
 };
 
 const handleOptions = async (path, options,resultArr) => {
-  if (options === undefined) {
+  if (options === undefined || (options.validate === false && options.stats === false)) {
     return await buildArr(path,resultArr);
   }
 
@@ -83,7 +114,7 @@ const handleOptions = async (path, options,resultArr) => {
     for (i = 0; i < arrLinks.length; i++) {
       const link = arrLinks[i];
       const urlResponse = await validateLink(link);
-      if (200 !== urlResponse) {
+      if (200 !== urlResponse && 201 !== urlResponse) {
         counter++;
       }
     };  
@@ -111,24 +142,24 @@ const handleOptions = async (path, options,resultArr) => {
   }
 };
 
- const handleArrFiles = async (arrPath,options, resultArr) => {
+  const handleArrFiles = async (arrPath,options, resultArr) => {
   try {
-//return arrPath;
-
-    const firstPath = arrPath[0];
-    const firstresult = await handleOptions(firstPath,options,resultArr);
-for (let index = 1; index < arrPath.length; index++) {
-  const indexPath = arrPath[index];
-  const indexresult = await handleOptions(indexPath,options,resultArr); 
-  indexresult.forEach(element => {
-    firstresult.push(element);
-  });
-}
-return firstresult;  
+/*       const choicePath = arrPath[3];
+    const choiceResult = await handleOptions(choicePath,options,resultArr);  */
+   const arrPromises = arrPath.map(async (filePath) => {
+     const obj = await handleOptions(filePath,options,resultArr);
+     if (obj === undefined) { return [] };
+return obj; 
+});
+return Promise.all(arrPromises)      
+.then(results =>
+  Promise.all(results.reduce((a, b) => a.concat(b), []))
+)
+  // return choiceResult
     } catch (error) {
-    console.log(error);
+  console.log(error);
   }
-} 
+}  
 
 
 module.exports = {
