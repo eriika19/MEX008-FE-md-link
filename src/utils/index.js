@@ -45,22 +45,25 @@ const validateArr = async (path, resultArr) => {
   try {
     const file = await getFile(path);
     const arrLinks = getLinkText(file);
-    //const resultArr = [];
-    for (index = 0; arrLinks.length !== resultArr.length; index++) {
-      const link = arrLinks[index].href;
-      const textLink = arrLinks[index].text;
-      const urlResponse = await validateLink(link);
-      const responseMsg = await getResponseMsg(urlResponse);
-      resultArr.push({
-        file: path,
-        href: link,
-        text: textLink,
-        line: getLinkLine(file, link),
-        status: responseMsg,
-        statusCode: urlResponse,
-      });
-    };
+    if (arrLinks.length > 0) {
+      for (index = 0; arrLinks.length !== resultArr.length; index++) {
+        const link = arrLinks[index].href;
+        const textLink = arrLinks[index].text;
+        const urlResponse = await validateLink(link);
+        const responseMsg = await getResponseMsg(urlResponse);
+        resultArr.push({
+          file: path,
+          href: link,
+          text: textLink,
+          line: getLinkLine(file, link),
+          status: responseMsg,
+          statusCode: urlResponse,
+        });
+      };  
     return resultArr;
+
+    }
+    //const resultArr = [];
   } catch (err) {
     console.log(err);
   }
@@ -112,17 +115,16 @@ const handleOptions = async (path, options,resultArr) => {
   try {
 //return arrPath;
 
-    const firstPath = arrPath[2];
+    const firstPath = arrPath[0];
     const firstresult = await handleOptions(firstPath,options,resultArr);
-    return firstresult;  
-/*for (let index = 1; i < arrFiles.length; index++) {
-  const indexPath = arrFiles[index];
+for (let index = 1; index < arrPath.length; index++) {
+  const indexPath = arrPath[index];
   const indexresult = await handleOptions(indexPath,options,resultArr); 
   indexresult.forEach(element => {
     firstresult.push(element);
   });
 }
-return firstresult;  */
+return firstresult;  
     } catch (error) {
     console.log(error);
   }
