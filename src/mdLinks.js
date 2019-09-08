@@ -20,10 +20,6 @@ const mdLinks = async (path, options) => {
     if (Array.isArray(arrPath)) { 
      const resultArr = [];
      return await handleArrFiles(arrPath,options,resultArr);     
-/*    const choicePath = arrPath[0];
-      console.log(choicePath);
-      const resultArr = [];
-      return await handleOptions(choicePath,options,resultArr); */ 
      }
   } catch (err) {
 
@@ -32,7 +28,7 @@ const mdLinks = async (path, options) => {
 };
 
 mdLinks('./test/test_dir',  {
-    validate: false,
+    validate: true,
     stats: false,
   })
   .then(result => console.log(result));
