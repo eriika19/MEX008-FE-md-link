@@ -125,8 +125,8 @@ mdLinks("C://user/some/example.md")
 
 ## Extensiones soportadas
 
-- [✔] file.md
-- [✔] file.markdown
+- [x] file.md
+- [x] file.markdown
 
 ### Estructuras/formatos de links soportados
 
