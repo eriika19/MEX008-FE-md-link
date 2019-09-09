@@ -68,6 +68,7 @@ mdLinks("C://user/some/example.md")
   mdLinks('path/to/file.md', { stats: true}).then(result => {
   /*
     {
+       File: <#path_file>
        Total: <#links_encontrados>
        Unique: <#links_únicos>
     }
@@ -79,6 +80,7 @@ mdLinks("C://user/some/example.md")
   mdLinks('path/to/file.md', { stats:true, validate: true}).then(result => {
   /*
     {
+       File: <#path_file>
        Total: <#links_encontrados>
        Unique: <#links_únicos>
        Broken: <#links_rotos>
