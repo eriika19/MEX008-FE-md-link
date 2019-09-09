@@ -39,7 +39,7 @@ $ npm install eriika19/md-links
 
 
 ```javascript
-const mdLinks = require("mdLinks");
+const {mdLinks} = require("mdLinks");
 ```
 
 - Buscar archivos markdown
