@@ -52,25 +52,28 @@ if (opts.h || opts.help) {
 
 mdLinks(args[0], options)
   .then(mdLink => {
+    if(mdLink === undefined){
+      throw error('NO path provided')
+  };
     if (options.stats && !options.validate) {
       //const statsArr = mdLink;      
       console.info('/**********   Stats   **********');
       mdLink.forEach(obj => {
-        console.info('  File:   ', obj.File)
-        console.info('  Total:  ', obj.Total)
-        console.info('  Unique: ', obj.Unique)
-        console.info('*****************************/')
+        console.info('  File:   ', obj.File);
+        console.info('  Total:  ', obj.Total);
+        console.info('  Unique: ', obj.Unique);
+        console.info('*****************************/');
       });
     };
 
     if (options.stats && options.validate) {
       console.info('*******  Validate/Stats  ********');
       mdLink.forEach(obj => {
-        console.info('  File:   ', obj.File)
-        console.info('  Total:  ', obj.Total)
-        console.info('  Unique: ', obj.Unique)
-        console.info('  Broken: ', obj.Broken)
-        console.info('*******************************')
+        console.info('  File:   ', obj.File);
+        console.info('  Total:  ', obj.Total);
+        console.info('  Unique: ', obj.Unique);
+        console.info('  Broken: ', obj.Broken);
+        console.info('*******************************');
       });
     }
 
@@ -79,17 +82,18 @@ mdLinks(args[0], options)
       console.info('**********  Validate  ***********');
       mdLink.forEach(obj => {
         if (Boolean(obj.info)) { 
-/*           console.info('  File:   ', obj.file)
+          console.info('  File:   ', obj.file, '   NO links found  ')
+/*        console.info('  File:   ', obj.file)
           console.info('  Links:  ', obj.links)
           console.info('  Info:   ', obj.info) */
         } else {
-          console.info('  File:   ', obj.file)
-          console.info('  Href:   ', obj.href)
-          console.info('  Text:   ', obj.text)
-          console.info('  Line:   ', obj.line)
-          console.info('  Status: ', obj.status)
-          console.info('  Code:   ', obj.statusCode)
-          console.info('*******************************')
+          console.info('  File:   ', obj.file);
+          console.info('  Href:   ', obj.href);
+          console.info('  Text:   ', obj.text);
+          console.info('  Line:   ', obj.line);
+          console.info('  Status: ', obj.status);
+          console.info('  Code:   ', obj.statusCode);
+          console.info('*******************************');
         }
       });
     };
@@ -98,16 +102,16 @@ mdLinks(args[0], options)
       console.info('**********   md-links  **********');
       mdLink.forEach(obj => {
         if (Boolean(obj.info)) {
-          console.info('  File:   ', obj.file)
-          console.info('  Links:  ', obj.links)
-          console.info('  Info:   ', obj.info)
+          console.info('  File:   ', obj.file);
+          console.info('  Links:  ', obj.links);
+          console.info('  Info:   ', obj.info);
         } else {
-          console.info('  File:   ', obj.file)
-          console.info('  Href:   ', obj.href)
-          console.info('  Text:   ', obj.text)
-          console.info('  Line:   ', obj.line)
+          console.info('  File:   ', obj.file);
+          console.info('  Href:   ', obj.href);
+          console.info('  Text:   ', obj.text);
+          console.info('  Line:   ', obj.line);
         }
-        console.info('*******************************')
+        console.info('*******************************');
       });
     };
 

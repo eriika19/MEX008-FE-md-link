@@ -10,7 +10,7 @@ const {
 
 const mdLinks = async (path, options) => {
   try {
-    const arrPath = handlePath(path);
+    const arrPath = await handlePath(path);
 
     if (typeof arrPath === 'string') {
       const resultArr = [];

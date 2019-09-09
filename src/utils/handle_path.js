@@ -34,16 +34,16 @@ const handleDir = (path) => {
   }
 }
 
-const handlePath = (path) => {
+const handlePath = async (path) => {
   try {
     if (!path) {
       return new Error('path was not provided');
     }
-  
+    
     if (typeof path !== 'string') {
       return new Error('path must be a string type');
     }
-
+    
     const isMd = isMarkdownFile(path);
 
      if (isMd) {
