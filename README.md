@@ -12,6 +12,8 @@ Encuentra y analiza los links dentro de un archivo markdown o de todos los archi
 * [CLI](#cli)
 * [Extensiones soportadas](#extensiones-soportadas)
 * [Estructuras/formatos de links soportados](#estructuras/formatos-de-links-soportados)
+* [Demo](#demo)
+
 ***
 
 
@@ -154,19 +156,22 @@ mdLinks("C://user/some/example.md")
 
 ## Demo
 
-### `Ejemplo validación de links de un archivo especificado`
+#### `Ejemplo:
+##### `validación de links de un archivo especificado`
 
 ![archivo](/img/md-links_file.png)
 
 
 
-### `Ejemplo búsqueda de links de un folder especificado`
+#### `Ejemplo:
+##### ` búsqueda de links de un folder especificado`
 
 ![archivo](/img/md-links_path.png)
 
 
 
-### `Ejemplo validación y estadística de links de un folder especificado`
+#### `Ejemplo:
+##### ` validación y estadística de links de un folder especificado`
 
 
 ![archivo](/img/md-links_dir.png)
