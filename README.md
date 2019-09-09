@@ -1,6 +1,6 @@
 # Markdown Links
 
-> Este repositorio esta se desarrollo como una solución al siguiente [plantemiento](https://github.com/Laboratoria/MEX008-FE-md-link.git)
+> Este repositorio se desarrollo como una propuesta al siguiente [planteamiento](https://github.com/Laboratoria/MEX008-FE-md-link.git)
 
 Encuentra y analiza los links dentro de un archivo markdown o de todos los archivo markdown dentro de un repositorio; con análisis de validación y y estadítisco.
 
@@ -62,9 +62,7 @@ mdLinks("C://user/some/example.md")
 - Obtener estadísticas
 
   ```javascript
-
   // Caso 1 .- Obtener estadísticas de links encontrados
- 
   mdLinks('path/to/file.md', { stats: true}).then(stats => {
   /*
     {
@@ -127,8 +125,8 @@ mdLinks("C://user/some/example.md")
 
 ## Extensiones soportadas
 
-- .md
-- .markdown
+-[✔] .md
+-[✔] .markdown
 
 ### Estructuras/formatos de links soportados
 
