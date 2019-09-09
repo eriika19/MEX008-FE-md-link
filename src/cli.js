@@ -64,7 +64,6 @@ mdLinks(args[0], options)
     };
 
     if (options.stats && options.validate) {
-      //const statsArr = mdLink;      
       console.info('*******  Validate/Stats  ********');
       mdLink.forEach(obj => {
         console.info('  File:   ', obj.File)
@@ -96,7 +95,6 @@ mdLinks(args[0], options)
     };
 
     if (!options.validate && !options.stats) {
-      //const statsArr = mdLink;      
       console.info('**********   md-links  **********');
       mdLink.forEach(obj => {
         if (Boolean(obj.info)) {
