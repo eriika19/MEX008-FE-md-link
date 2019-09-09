@@ -2,7 +2,7 @@
 
 const minimist = require('minimist');
 const package = require('../package');
-const mdLinks = require('./mdLinks');
+const {mdLinks} = require('./mdLinks');
 
 const start = new Date();
 
@@ -54,33 +54,35 @@ mdLinks(args[0], options)
   .then(mdLink => {
     if (options.stats && !options.validate) {
       //const statsArr = mdLink;      
-      console.info('/*********   Stats   *********');
+      console.info('/**********   Stats   **********');
       mdLink.forEach(obj => {
-        console.info('  Total: ', obj.total)
-        console.info('  Unique: ', obj.unique)
+        console.info('  File:   ', obj.File)
+        console.info('  Total:  ', obj.Total)
+        console.info('  Unique: ', obj.Unique)
+        console.info('*****************************/')
       });
-      console.info('******************************/')
     };
 
     if (options.stats && options.validate) {
       //const statsArr = mdLink;      
-      console.info('*******  Validate/Stats  *******');
+      console.info('*******  Validate/Stats  ********');
       mdLink.forEach(obj => {
-        console.info('  Total:  ', obj.total)
-        console.info('  Unique: ', obj.unique)
-        console.info('  Broken: ', obj.broken)
+        console.info('  File:   ', obj.File)
+        console.info('  Total:  ', obj.Total)
+        console.info('  Unique: ', obj.Unique)
+        console.info('  Broken: ', obj.Broken)
+        console.info('*******************************')
       });
-      console.info('*******************************')
     }
 
     if (options.validate && !options.stats) {
       //const statsArr = mdLink;      
-      console.info('*********  Validate  *********');
+      console.info('**********  Validate  ***********');
       mdLink.forEach(obj => {
-        if (obj.error === true) {
-          console.info('  File:   ', obj.file)
+        if (Boolean(obj.info)) { 
+/*           console.info('  File:   ', obj.file)
           console.info('  Links:  ', obj.links)
-          console.info('  Info:   ', obj.info)
+          console.info('  Info:   ', obj.info) */
         } else {
           console.info('  File:   ', obj.file)
           console.info('  Href:   ', obj.href)
@@ -88,16 +90,16 @@ mdLinks(args[0], options)
           console.info('  Line:   ', obj.line)
           console.info('  Status: ', obj.status)
           console.info('  Code:   ', obj.statusCode)
+          console.info('*******************************')
         }
       });
-      console.info('*******************************')
     };
 
     if (!options.validate && !options.stats) {
       //const statsArr = mdLink;      
-      console.info('*********   md-links  *********');
+      console.info('**********   md-links  **********');
       mdLink.forEach(obj => {
-        if (obj.error === true) {
+        if (Boolean(obj.info)) {
           console.info('  File:   ', obj.file)
           console.info('  Links:  ', obj.links)
           console.info('  Info:   ', obj.info)
@@ -107,8 +109,8 @@ mdLinks(args[0], options)
           console.info('  Text:   ', obj.text)
           console.info('  Line:   ', obj.line)
         }
+        console.info('*******************************')
       });
-      console.info('*******************************')
     };
 
     // Execution time

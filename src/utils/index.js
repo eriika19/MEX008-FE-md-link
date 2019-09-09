@@ -114,6 +114,7 @@ const handleOptions = async (path, options,resultArr) => {
       }
     };  
     const bothArr = [{
+      File: path,
       Total: allMatches.length,
       Unique: uniqueLinks.size,
       Broken: counter,
@@ -130,6 +131,7 @@ const handleOptions = async (path, options,resultArr) => {
     const allMatches = getAllLinks(file);
     const uniqueLinks = getUniqueLinks(file);
     const statsArr = [{
+      File: path,
       Total: allMatches.length,
       Unique: uniqueLinks.size,
     }];
