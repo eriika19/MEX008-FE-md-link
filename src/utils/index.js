@@ -8,11 +8,6 @@ const {
     getRawLinks
       } = require('./get_links.js');
 
-      const {
-handlePath
-          } = require('./handle_path.js');
-
-
   const getResponseMsg = (response) => {
   if (response !== 200 && response !== 201) {
     return 'fail';
@@ -29,17 +24,17 @@ const buildArr = async (path, resultArr) => {
   if (arrLinks.length < 1) {
     const rawLinks = getRawLinks(file);
       if (rawLinks.length > 0) {
-        return {
+        return [{
           file: path,
           links: rawLinks.length,
-          error: 'the markdown file has no links with the next structure: "[text_of_link](href_of_link)"'
-        };
+          info: 'the markdown file has no links with the next structure: "[text_of_link](href_of_link)"'
+        }];
      }
-     return {
+     return [{
       file: path,
       links: rawLinks.length,
-      error: 'the markdown file has no links'
-    };
+      info: 'the markdown file has no links'
+    }];
       }
       for (index = 0; arrLinks.length !== resultArr.length; index++) {
       //  if(arrLinks[index] === undefined) {break;};        
@@ -66,17 +61,17 @@ const validateArr = async (path, resultArr) => {
     if (arrLinks.length < 1) {
       const rawLinks = getRawLinks(file);
         if (rawLinks.length > 0) {
-          return {
+          return [{
             file: path,
             links: rawLinks.length,
-            error: 'the markdown file has no links with the next structure: "[text_of_link](href_of_link) to validate"'
-          };
+            info: 'the markdown file has no links with the next structure: "[text_of_link](href_of_link) to validate"'
+          }];
        }
-       return {
+       return [{
         file: path,
         links: rawLinks.length,
-        error: 'the markdown file has no links to validate'
-      };
+        info: 'the markdown file has no links to validate'
+      }];
         }
       for (index = 0; arrLinks.length !== resultArr.length; index++) {
     //    if(arrLinks[index] === undefined) {break};
@@ -118,11 +113,11 @@ const handleOptions = async (path, options,resultArr) => {
         counter++;
       }
     };  
-    const bothArr = {
+    const bothArr = [{
       Total: allMatches.length,
       Unique: uniqueLinks.size,
       Broken: counter,
-    };
+    }];
     return bothArr;
   }
 
@@ -134,18 +129,16 @@ const handleOptions = async (path, options,resultArr) => {
     const file = await getFile(path);
     const allMatches = getAllLinks(file);
     const uniqueLinks = getUniqueLinks(file);
-    const statsArr = {
+    const statsArr = [{
       Total: allMatches.length,
       Unique: uniqueLinks.size,
-    };
+    }];
     return statsArr;
   }
 };
 
   const handleArrFiles = async (arrPath,options, resultArr) => {
   try {
-/*       const choicePath = arrPath[3];
-    const choiceResult = await handleOptions(choicePath,options,resultArr);  */
    const arrPromises = arrPath.map(async (filePath) => {
      const obj = await handleOptions(filePath,options,resultArr);
      if (obj === undefined) { return [] };
@@ -155,12 +148,10 @@ return Promise.all(arrPromises)
 .then(results =>
   Promise.all(results.reduce((a, b) => a.concat(b), []))
 )
-  // return choiceResult
     } catch (error) {
   console.log(error);
   }
 }  
-
 
 module.exports = {
   getResponseMsg,

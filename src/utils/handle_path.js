@@ -60,7 +60,7 @@ return pathsArr;
   }
   };
 
-//   handlePath('./test/test_dir').then(e => console.log(e));
+//   handlePath('./test/data/test_dir').then(e => console.log(e));
 
 module.exports = {
   handlePath

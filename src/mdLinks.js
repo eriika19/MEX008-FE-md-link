@@ -27,8 +27,8 @@ const mdLinks = async (path, options) => {
   }
 };
 
-mdLinks('./test/test_dir',  {
-    validate: false,
+mdLinks('./test/data/test_dir',  {
+    validate: true,
     stats: true,
   })
   .then(result => console.log(result));
