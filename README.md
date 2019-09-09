@@ -177,3 +177,9 @@ mdLinks("C://user/some/example.md")
 ![archivo](/img/md-links_dir.png)
 
 
+#### Ejemplo:
+##### ` validación de links de un folder especificado`
+
+![archivo](/img/md-links_dirV.png)
+
+
