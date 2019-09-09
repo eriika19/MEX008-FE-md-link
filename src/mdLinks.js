@@ -27,11 +27,11 @@ const mdLinks = async (path, options) => {
   }
 };
 
-/* mdLinks('./test/data/test_dir',  {
+/*  mdLinks('./test/data/test_dir',  {
     validate: true,
     stats: false,
   })
-  .then(result => console.log(result));  */
+  .then(result => console.log(result)); */
 
 //mdLinks('./test/test_dir/test_3.md', {
  
