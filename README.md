@@ -156,21 +156,21 @@ mdLinks("C://user/some/example.md")
 
 ## Demo
 
-#### *Ejemplo:*
+#### Ejemplo:
 ##### `validación de links de un archivo especificado`
 
 ![archivo](/img/md-links_file.png)
 
 
 
-#### *Ejemplo:*
+#### Ejemplo:
 ##### ` búsqueda de links de un folder especificado`
 
 ![archivo](/img/md-links_path.png)
 
 
 
-#### *Ejemplo:*
+#### Ejemplo:
 ##### ` validación y estadística de links de un folder especificado`
 
 
