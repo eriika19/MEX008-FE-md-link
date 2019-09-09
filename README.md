@@ -63,23 +63,23 @@ mdLinks("C://user/some/example.md")
 
   ```javascript
   // Caso 1 .- Obtener estadísticas de links encontrados
-  mdLinks('path/to/file.md', { stats: true}).then(stats => {
+  mdLinks('path/to/file.md', { stats: true}).then(result => {
   /*
     {
-       Total: <#linksFound>
-       Unique: <#linksUnique>
+       Total: <#links_encontrados>
+       Unique: <#links_únicos>
     }
    */
   });
 
 
   // Caso 2 .- Obtener estadísticas de links encontrados y links rotos
-  mdLinks('path/to/file.md', { stats:true, validate: true}).then(stats => {
+  mdLinks('path/to/file.md', { stats:true, validate: true}).then(result => {
   /*
     {
-       Total: <#linksFound>
-       Unique: <#linksUnique>
-       Broken: <#linksBroken>
+       Total: <#links_encontrados>
+       Unique: <#links_únicos>
+       Broken: <#links_rotos>
     }
    */
   };
@@ -101,15 +101,29 @@ mdLinks("C://user/some/example.md")
 
   ```Bash
   $ md-links <path/to/directory> --validate
-    ./some/example.md http://algo.com/2/3/ ok 200 Link a algo
-    ./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
-    ./some/example.md http://google.com/ ok 301 Google
+  **********  Validate  ***********
+  File:    ./some/example.md
+  Href:    http://algo.com/2/3/
+  Text:    prototipo
+  Line:    66
+  Status:  ok
+  Code:    200
+  *******************************
+  File:    ./some/example.md
+  Href:    https://otra-cosa.net/algun-doc.html fail
+  Text:    otra cosa
+  Line:    78
+  Status:  fail
+  Code:    404
+  *******************************
+  Execution time: 861ms
   ```
 
 - Añadir opción de estadísticas del archivo markdown `--stats`
 
   ```Bash
-  md-links <path/to/directory> --stats
+    $ md-links <path/to/directory> --stats
+    File: <path/to/directory>
     Total: 3
     Unique: 3
   ```
@@ -117,7 +131,8 @@ mdLinks("C://user/some/example.md")
 - Validar los links del archivo markdown y obtner estadísticas `--vaidate` `--stats`
 
   ```Bash
-  md-links <path/to/directory> --validate --stats
+    $ md-links <path/to/directory> --validate --stats
+    File: <path/to/directory>
     Total: 3
     Unique: 3
     Broken: 1
@@ -136,6 +151,15 @@ mdLinks("C://user/some/example.md")
   [text](http://test.com)
   [text (parenthesis)](http://www.test.com)
   ```
+
+## Demo
+![archivo](/img/md-links_file.png)
+
+
+![archivo](/img/md-links_dir.png)
+
+
+![archivo](/img/md-links_path.png)
 
 
 
