@@ -8,11 +8,6 @@ const {
     getRawLinks
       } = require('./get_links.js');
 
-      const {
-handlePath
-          } = require('./handle_path.js');
-
-
   const getResponseMsg = (response) => {
   if (response !== 200 && response !== 201) {
     return 'fail';
@@ -144,8 +139,6 @@ const handleOptions = async (path, options,resultArr) => {
 
   const handleArrFiles = async (arrPath,options, resultArr) => {
   try {
-/*       const choicePath = arrPath[3];
-    const choiceResult = await handleOptions(choicePath,options,resultArr);  */
    const arrPromises = arrPath.map(async (filePath) => {
      const obj = await handleOptions(filePath,options,resultArr);
      if (obj === undefined) { return [] };
@@ -155,12 +148,10 @@ return Promise.all(arrPromises)
 .then(results =>
   Promise.all(results.reduce((a, b) => a.concat(b), []))
 )
-  // return choiceResult
     } catch (error) {
   console.log(error);
   }
 }  
-
 
 module.exports = {
   getResponseMsg,

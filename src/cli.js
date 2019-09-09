@@ -32,7 +32,7 @@ const help = () => {
         `;
 }
 
-const {_: args, ... } = minimist(process.argv.slice(2));
+const { _: args, ...opts } = minimist(process.argv.slice(2))
 
 const options = {
   validate: Boolean(opts.validate),
